@@ -4,6 +4,7 @@ namespace App\Models\Payment;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -21,6 +22,7 @@ class FeeRule extends Model
         'trigger_action',
         'trigger_condition',
         'payment_type',
+        'gfs_id',
         'amount',
         'currency',
         'active',
@@ -41,5 +43,10 @@ class FeeRule extends Model
     public function invoiceItems(): HasMany
     {
         return $this->hasMany(InvoiceItem::class);
+    }
+
+    public function gfs(): BelongsTo
+    {
+        return $this->belongsTo(Gfs::class);
     }
 }

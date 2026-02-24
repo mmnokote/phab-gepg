@@ -30,6 +30,10 @@ class InvoiceBillingService
                 abort(422, 'Fee rule amount is not configured yet.');
             }
 
+            if (! $feeRule->gfs_id) {
+                abort(422, 'Fee rule GFS mapping is not configured yet.');
+            }
+
             $invoice = Invoice::create([
                 'uuid' => (string) Str::uuid(),
                 'invoice_number' => 'TMP-' . Str::uuid(),
@@ -62,6 +66,7 @@ class InvoiceBillingService
                 'meta' => [
                     'trigger_action' => $feeRule->trigger_action,
                     'trigger_condition' => $feeRule->trigger_condition,
+                    'gfs_id' => $feeRule->gfs_id,
                 ],
                 'created_by' => (string) (auth()->id() ?? 'system'),
                 'updated_by' => (string) (auth()->id() ?? 'system'),
