@@ -42,17 +42,23 @@ return new class extends Migration
         $gfsIds = [];
 
         foreach ($gfsRows as $code => $gfs) {
+            $payload = [
+                'name' => $gfs['name'],
+                'description' => $gfs['description'],
+                'active' => true,
+                'updated_by' => 'system',
+                'updated_at' => $now,
+                'created_by' => 'system',
+                'created_at' => $now,
+            ];
+
+            if (DB::getSchemaBuilder()->hasColumn('gfs', 'gepg_gfs_code')) {
+                $payload['gepg_gfs_code'] = $code;
+            }
+
             DB::table('gfs')->updateOrInsert(
                 ['code' => $code],
-                [
-                    'name' => $gfs['name'],
-                    'description' => $gfs['description'],
-                    'active' => true,
-                    'updated_by' => 'system',
-                    'updated_at' => $now,
-                    'created_by' => 'system',
-                    'created_at' => $now,
-                ]
+                $payload
             );
 
             $gfsIds[$code] = DB::table('gfs')->where('code', $code)->value('id');

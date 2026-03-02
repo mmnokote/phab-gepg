@@ -10,13 +10,15 @@ class FeeRulesSeeder extends Seeder
 {
     public function run(): void
     {
+        $appCode = (string) config('gepg.default_app_code', 'DEFAULT');
+
         $gfsRows = [
-            'GFS_REG_APP' => ['name' => 'Registration Application Fees', 'description' => 'GFS account for registration application charges'],
-            'GFS_REG_ANNUAL' => ['name' => 'Registration Annual Fees', 'description' => 'GFS account for annual registration and membership charges'],
-            'GFS_LICENSE' => ['name' => 'Practicing License Fees', 'description' => 'GFS account for practicing license charges'],
-            'GFS_CPD' => ['name' => 'CPD Accreditation Fees', 'description' => 'GFS account for CPD provider accreditation charges'],
-            'GFS_CERT' => ['name' => 'Certificate Service Fees', 'description' => 'GFS account for certificate replacement/duplication charges'],
-            'GFS_VERIFY' => ['name' => 'Verification Service Fees', 'description' => 'GFS account for verification-related charges'],
+            'GFS_REG_APP' => ['gepg_gfs_code' => 'GFS_REG_APP', 'name' => 'Registration Application Fees', 'description' => 'GFS account for registration application charges'],
+            'GFS_REG_ANNUAL' => ['gepg_gfs_code' => 'GFS_REG_ANNUAL', 'name' => 'Registration Annual Fees', 'description' => 'GFS account for annual registration and membership charges'],
+            'GFS_LICENSE' => ['gepg_gfs_code' => 'GFS_LICENSE', 'name' => 'Practicing License Fees', 'description' => 'GFS account for practicing license charges'],
+            'GFS_CPD' => ['gepg_gfs_code' => 'GFS_CPD', 'name' => 'CPD Accreditation Fees', 'description' => 'GFS account for CPD provider accreditation charges'],
+            'GFS_CERT' => ['gepg_gfs_code' => 'GFS_CERT', 'name' => 'Certificate Service Fees', 'description' => 'GFS account for certificate replacement/duplication charges'],
+            'GFS_VERIFY' => ['gepg_gfs_code' => 'GFS_VERIFY', 'name' => 'Verification Service Fees', 'description' => 'GFS account for verification-related charges'],
         ];
 
         $gfsIds = [];
@@ -53,8 +55,9 @@ class FeeRulesSeeder extends Seeder
             unset($rule['gfs_code']);
 
             FeeRule::query()->updateOrCreate(
-                ['code' => $rule['code']],
+                ['app_code' => $appCode, 'code' => $rule['code']],
                 array_merge($rule, [
+                    'app_code' => $appCode,
                     'gfs_id' => $gfsIds[$gfsCode] ?? null,
                     'currency' => 'TZS',
                     'active' => true,

@@ -17,6 +17,7 @@ class FeeRule extends Model
 
     protected $fillable = [
         'code',
+        'app_code',
         'module',
         'sub_module',
         'trigger_action',

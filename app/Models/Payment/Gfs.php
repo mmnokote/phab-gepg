@@ -16,6 +16,7 @@ class Gfs extends Model
 
     protected $fillable = [
         'code',
+        'gepg_gfs_code',
         'name',
         'description',
         'active',

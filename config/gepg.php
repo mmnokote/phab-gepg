@@ -1,6 +1,8 @@
 <?php
 
 return [
+    'default_app_code' => env('GEPG_DEFAULT_APP_CODE', 'DEFAULT'),
+    'default_profile_code' => env('GEPG_DEFAULT_PROFILE_CODE', 'DEFAULT'),
     'sp_code' => env('GEPG_SP_CODE', 'SP99400'),
     'company_code' => env('GEPG_COMPANY_CODE', 'default.sp.in'),
     'algorithm' => env('GEPG_ALGORITHM', '00S2'),
