@@ -18,7 +18,10 @@ class CreateBillRequest extends APIRequest
             'fee_rule_code' => [
                 'required',
                 'string',
-                Rule::exists('fee_rules', 'code')->whereNull('deleted_at')->where('active', true),
+                Rule::exists('fee_rules', 'code')
+                    ->whereNull('deleted_at')
+                    ->where('active', true)
+                    ->whereNotNull('gfs_id'),
             ],
             'trigger_reference' => ['nullable', 'string', 'max:150'],
             'payer_name' => ['required', 'string', 'max:255'],
