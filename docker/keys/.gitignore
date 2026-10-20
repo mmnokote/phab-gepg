@@ -1,0 +1,3 @@
+# GePG key material must never be committed or baked into images.
+*
+!.gitignore

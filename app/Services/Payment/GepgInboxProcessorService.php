@@ -123,7 +123,7 @@ class GepgInboxProcessorService
 
     private function tag(string $xml, string $tag): ?string
     {
-        if (preg_match('/<' . preg_quote($tag, '/') . '>(.*?)<\\\/' . preg_quote($tag, '/') . '>/s', $xml, $m)) {
+        if (preg_match('/<' . preg_quote($tag, '/') . '>(.*?)<\/' . preg_quote($tag, '/') . '>/s', $xml, $m)) {
             return trim(html_entity_decode($m[1]));
         }
 
